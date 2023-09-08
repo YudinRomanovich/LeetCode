@@ -146,21 +146,11 @@ public:
 
 class Solution2310 {
 public:
-
-    int minimumNumbers(int num, int k) {
-        int countOfSet = 0;
-        int numMaxSize = num;
-        for (int i = 0; i < numMaxSize; ) {
-            num--;
-            i++;
-            if (num % 10 == 9 && i % 10 == 9) {
-                if (num + i == numMaxSize) {
-                    countOfSet++;
-                }
-            }
-
-        }
-        return countOfSet;
+    int minimumNumbers(int sum, int k) {
+        if (sum == 0) return 0;
+        for (int i = 1; i <= 10; ++i)
+            if ((i * k) % 10 == sum % 10 && i * k <= sum) return i;
+        return -1;
     }
 };
 
