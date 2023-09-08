@@ -142,7 +142,27 @@ public:
     }
 };
 
+//2310. Sum of Numbers With Units Digit K
 
+class Solution2310 {
+public:
+
+    int minimumNumbers(int num, int k) {
+        int countOfSet = 0;
+        int numMaxSize = num;
+        for (int i = 0; i < numMaxSize; ) {
+            num--;
+            i++;
+            if (num % 10 == 9 && i % 10 == 9) {
+                if (num + i == numMaxSize) {
+                    countOfSet++;
+                }
+            }
+
+        }
+        return countOfSet;
+    }
+};
 
 
 int main() {
@@ -157,10 +177,8 @@ int main() {
    /* Solution875 sol875;
     std::vector<int> piles = { 3,6,7,11 };
     std::cout<<sol875.minEatingSpeed(piles,8);*/
-    Solution2154 sol2154;
-    std::vector<int> nums = { 8,19,4,2,15,3 };
-    std::cout<<sol2154.findFinalValue(nums, 2);
-
+    Solution2310 sol2310;
+    std::cout<<sol2310.minimumNumbers(58, 9);
     
 
     return 0;
