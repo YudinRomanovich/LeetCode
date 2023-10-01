@@ -3,6 +3,17 @@
 #include <algorithm>
 
 
+  struct TreeNode {
+      int val;
+      TreeNode *left;
+      TreeNode *right;
+      TreeNode() : val(0), left(nullptr), right(nullptr) {}
+      TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+      TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+  };
+ 
+
+
 
  //35. Search Insert Position
 
@@ -154,6 +165,17 @@ public:
     }
 };
 
+//2236. Root Equals Sum of Children
+
+class Solution2236 {
+public:
+    bool checkTree(TreeNode* root) {
+        if (root->right->val + root->left->val == root->val) {
+            return true;
+        }
+        else return false;
+    }
+};
 
 int main() {
 
@@ -169,6 +191,8 @@ int main() {
     std::cout<<sol875.minEatingSpeed(piles,8);*/
     Solution2310 sol2310;
     std::cout<<sol2310.minimumNumbers(58, 9);
+    TreeNode tN;
+
     
 
     return 0;
