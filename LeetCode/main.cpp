@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
-
+#include <unordered_map>
 
   struct TreeNode {
       int val;
@@ -177,6 +177,54 @@ public:
     }
 };
 
+//1913. Maximum Product Difference Between Two Pairs
+
+class Solution1913 {
+public:
+    int maxProductDifference(std::vector<int>& nums) {
+        std::sort(nums.begin(), nums.end());
+        return (nums[nums.size() - 1] * nums[nums.size() - 2]) - (nums[0] * nums[1]);
+    }
+};
+
+//13. Roman to Integer
+
+class Solution13 {
+public:
+    int romanToInt(std::string s) {
+
+        std::unordered_map<char, int> roman;
+
+        roman.emplace('I', 1);
+        roman.emplace('V', 5);
+        roman.emplace('X', 10);
+        roman.emplace('L', 50);
+        roman.emplace('C', 100);
+        roman.emplace('D', 500);
+        roman.emplace('M', 1000);
+        
+
+
+        int sol13sum = 0;
+
+
+
+        for (int i = 0; i < s.size(); i++) {
+            if (roman[s[i]] < roman[s[i + 1]]) {
+                sol13sum += roman[s[i + 1]] - roman[s[i]];
+                i++;
+            }
+            else {
+                sol13sum += roman[s[i]];
+            }
+        }
+
+        return sol13sum;
+    }
+};
+
+
+
 int main() {
 
     //Solution35 sol35;
@@ -189,11 +237,17 @@ int main() {
    /* Solution875 sol875;
     std::vector<int> piles = { 3,6,7,11 };
     std::cout<<sol875.minEatingSpeed(piles,8);*/
-    Solution2310 sol2310;
+    /*Solution2310 sol2310;
     std::cout<<sol2310.minimumNumbers(58, 9);
-    TreeNode tN;
+    TreeNode tN;*/
 
-    
+    Solution13 sol13;
+
+    std::string s;
+
+    std::cin >> s;
+
+    std::cout<<sol13.romanToInt(s);
 
     return 0;
 }
