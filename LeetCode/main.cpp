@@ -11,9 +11,6 @@
       TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
       TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
   };
- 
-
-
 
  //35. Search Insert Position
 
@@ -223,31 +220,72 @@ public:
     }
 };
 
+//2553. Separate the Digits in an Array
+
+class Solution2553 {
+public:
+    std::vector<int> separateDigits(std::vector<int>& nums) {
+        std::vector<int> tmpVec;
+        tmpVec.reserve(nums.size() * 3);
+        for (auto& count : nums) {
+            int countRate = count % 10;
+            int iRate = 0;
+            int i = 1;
+            if (count < 10) {
+                iRate = 0;
+            }
+            if (count >= 10 && count < 100) {
+                iRate = 1;
+            }
+            if (count >= 100 && count < 1000) {
+                iRate = 2;
+            }
+            if (count >= 1000 && count < 10000) {
+                iRate = 3;
+            }
+            if (count >= 10000 && count < 100000) {
+                iRate = 4;
+            }
+            if (count >= 100000 && count < 1000000) {
+                iRate = 5;
+            }
+            int iMultiply = iRate;
+            for (; iMultiply > 0; iMultiply--) {
+                i *= 10;
+            }
+            for (; iRate >= 0; i /= 10) {
+                tmpVec.push_back((count / i) % 10);
+                iRate--;
+            }
+
+        }
+        nums.clear();
+        for (auto count = tmpVec.begin(); count < tmpVec.end(); count++) {
+            nums.push_back(*count);
+        }
+        return nums;
+    }
+};
+
 
 
 int main() {
 
-    //Solution35 sol35;
-    //std::vector<int> nums = { 1,3,5,6 };
-    //Solution69 sol69;
-    //std::cout << sol69.mySqrt(5)<<'\n';
-    //Solution9 sol9;
-    //std::cout << sol9.isPalindrome(22)<<'\n';
-    //Solution1 sol1;
-   /* Solution875 sol875;
-    std::vector<int> piles = { 3,6,7,11 };
-    std::cout<<sol875.minEatingSpeed(piles,8);*/
-    /*Solution2310 sol2310;
-    std::cout<<sol2310.minimumNumbers(58, 9);
-    TreeNode tN;*/
+    std::vector<int> nums;
 
-    Solution13 sol13;
+    nums.push_back(13);
+    nums.push_back(25);
+    nums.push_back(83);
+    nums.push_back(77000);
 
-    std::string s;
 
-    std::cin >> s;
+    Solution2553 sol2553;
 
-    std::cout<<sol13.romanToInt(s);
+    sol2553.separateDigits(nums);
 
+    for (size_t i = 0; i < nums.size(); i++)
+    {
+        std::cout << nums[i] << '\t';
+    }
     return 0;
 }
