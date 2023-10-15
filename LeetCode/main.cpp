@@ -311,7 +311,80 @@ public:
 
 };
 
+int NOD(int a, int b)
+{
+    while (a > 0 && b > 0)
+
+        if (a > b)
+            a %= b;
+
+        else
+            b %= a;
+
+    return a + b;
+}
+
+//1071. Greatest Common Divisor of Strings
+class Solution1071 {
+public:
+    std::string gcdOfStrings(std::string str1, std::string str2) {
+       
+        std::string tmpstr1;
+        std::string tmpstr2;
+        bool counterOfgcd = false;
+
+        for (size_t i = 0; i < str2.size(); i++) {
+            tmpstr1.push_back(str1[i]);
+        }
+
+        if (tmpstr1 != str2) {
+            return "";
+        }
+
+        tmpstr1.clear();
+
+        size_t minSizeOfStr = NOD(str1.size(), str2.size());
+
+        for (size_t i = 0; i < minSizeOfStr; i++){
+            tmpstr1.push_back(str1[i]);
+        }
+        for (size_t i = 0; i < minSizeOfStr; i++) {
+            tmpstr2.push_back(str2[i]);
+        }
+        if (tmpstr1 == tmpstr2) {
+            tmpstr1.clear();
+            for (size_t i = 0; i < str1.size(); i+=minSizeOfStr){
+                for (size_t j = i; j < minSizeOfStr+i; j++){
+                    tmpstr1.push_back(str1[j]);
+                }
+                if (tmpstr1 == tmpstr2) {
+                    counterOfgcd = true;
+                }
+                if (counterOfgcd == true && i+minSizeOfStr == str1.size()) {
+                    return tmpstr2;
+                }
+                if (tmpstr2 != tmpstr1) {
+                    return "";
+                }
+                counterOfgcd = false;
+                tmpstr1.clear();
+            }
+        }
+        else return "";
+
+    }
+};
+
 int main() {
+
+    Solution1071 sol1071;
+    std::string str1 = "AAAAAAAAA";
+    std::string str2 = "AAACCC";
+
+    std::cout<<sol1071.gcdOfStrings(str1, str2);
+
+    
+
 
     return 0;
 }
