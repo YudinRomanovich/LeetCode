@@ -226,7 +226,7 @@ class Solution2553 {
 public:
     std::vector<int> separateDigits(std::vector<int>& nums) {
         std::vector<int> tmpVec;
-        tmpVec.reserve(nums.size() * 3);
+        tmpVec.reserve(nums.size() * 5);
         for (auto& count : nums) {
             int countRate = count % 10;
             int iRate = 0;
@@ -267,25 +267,51 @@ public:
     }
 };
 
+//1768. Merge Strings Alternately
+class Solution1768 {
+public:
+    std::string mergeAlternately(std::string word1, std::string word2) {
+        std::string* buffer = new std::string;
+        std::string result;
 
+        for (size_t i = 0; i < word1.size() + word2.size(); i++) {
+            if (word1.size() == 0) {
+                buffer->push_back(word2[i]);
+                i++;
+                continue;
+            }
+            else if (word2.size() == 0) {
+                buffer->push_back(word1[i]);
+                i++;
+                continue;
+            }
+            else if (word1.size() != 0 && word2.size() != 0) {
+                while (i < word1.size()) {
+                    buffer->push_back(word1[i]);
+                    if (i < word2.size()) {
+                        buffer->push_back(word2[i]);
+                    }
+                    i++;
+                }
+            }
+
+            while (i < word2.size()) {
+                buffer->push_back(word2[i]);
+                i++;
+            }
+        }
+
+        for (auto& a : *buffer) {
+            result.push_back(a);
+        }
+
+        delete buffer;
+        return result;
+    }
+
+};
 
 int main() {
 
-    std::vector<int> nums;
-
-    nums.push_back(13);
-    nums.push_back(25);
-    nums.push_back(83);
-    nums.push_back(77000);
-
-
-    Solution2553 sol2553;
-
-    sol2553.separateDigits(nums);
-
-    for (size_t i = 0; i < nums.size(); i++)
-    {
-        std::cout << nums[i] << '\t';
-    }
     return 0;
 }
