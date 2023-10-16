@@ -380,12 +380,16 @@ public:
         bool isBigger = true;
         int result;
         std::vector<bool> resultIsBigger;
-        for (size_t i = 0; i < candies.size(); i++){
+        int sizeOfvector = candies.size();
+            
+
+        for (size_t i = 0; i < sizeOfvector; i++){
             result = candies[i] + extraCandies;
-            for (size_t j = 0; j < candies.size(); j++){
+            for (size_t j = 0; j < sizeOfvector; j++){
                 if (result < candies[j]) {
                     isBigger = false;
                     resultIsBigger.push_back(isBigger);
+                    break;
                 }
             }
             if (isBigger == true){
@@ -394,22 +398,52 @@ public:
             isBigger = true;
         }
 
-        for (size_t i = 0; i < resultIsBigger.size(); i++)
-        {
-            std::cout << resultIsBigger[i] << '\t';
-        }
-
         return resultIsBigger;
     }
 };
 
-int main() {
-    
-    Solution1431 sol;
-    std::vector<int> candies = { 2, 3, 5, 1, 3 };
-    int extraCandies = 3;
+//605. Can Place Flowers
+class Solution605 {
+public:
+    bool canPlaceFlowers(std::vector<int>& flowerbed, int n) {
 
-    sol.kidsWithCandies(candies, extraCandies);
+        int rightBound = flowerbed.size()-1;
+
+        for (size_t i = 0; i < flowerbed.size(); i++) {
+            if (n == 0) {
+                return true;
+            }
+            if (i > 0 && i < rightBound) {
+                if (flowerbed[i] == 0 && flowerbed[i - 1] == 0 && flowerbed[i + 1] == 0) {
+                    n--;
+                    flowerbed[i] = 1;
+                }
+            }
+            else if (i == 0) {
+                if (flowerbed[i] == 0 && flowerbed[i + 1] == 0) {
+                    n--;
+                    flowerbed[i] = 1;
+                }
+            }
+            else if (i == rightBound) {
+                if (flowerbed[i] == 0 && flowerbed[i - 1] == 0) {
+                    n--;
+                    flowerbed[i] = 1;
+                }
+            }
+        }
+        if (n == 0) {
+            return true;
+        }else  return false;
+       
+    }
         
+};
+
+int main() {
+    Solution605 sol;
+    std::vector<int> flowerbed = { 1,0,0,0,1,0,0 };
+    int n = 2;
+    std::cout<<sol.canPlaceFlowers(flowerbed, n);
     return 0;
 }
