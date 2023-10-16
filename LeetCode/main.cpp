@@ -373,7 +373,43 @@ public:
     }
 };
 
-int main() {
+//1431. Kids With the Greatest Number of Candies
+class Solution1431 {
+public:
+    std::vector<bool> kidsWithCandies(std::vector<int>& candies, int extraCandies) {
+        bool isBigger = true;
+        int result;
+        std::vector<bool> resultIsBigger;
+        for (size_t i = 0; i < candies.size(); i++){
+            result = candies[i] + extraCandies;
+            for (size_t j = 0; j < candies.size(); j++){
+                if (result < candies[j]) {
+                    isBigger = false;
+                    resultIsBigger.push_back(isBigger);
+                }
+            }
+            if (isBigger == true){
+                resultIsBigger.push_back(isBigger);
+            }
+            isBigger = true;
+        }
 
+        for (size_t i = 0; i < resultIsBigger.size(); i++)
+        {
+            std::cout << resultIsBigger[i] << '\t';
+        }
+
+        return resultIsBigger;
+    }
+};
+
+int main() {
+    
+    Solution1431 sol;
+    std::vector<int> candies = { 2, 3, 5, 1, 3 };
+    int extraCandies = 3;
+
+    sol.kidsWithCandies(candies, extraCandies);
+        
     return 0;
 }
