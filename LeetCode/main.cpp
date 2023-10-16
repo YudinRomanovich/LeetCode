@@ -328,24 +328,27 @@ int NOD(int a, int b)
 class Solution1071 {
 public:
     std::string gcdOfStrings(std::string str1, std::string str2) {
-       
+
         std::string tmpstr1;
         std::string tmpstr2;
-        bool counterOfgcd = false;
 
-        for (size_t i = 0; i < str2.size(); i++) {
-            tmpstr1.push_back(str1[i]);
+        int str1size = str1.size();
+        int str2size = str2.size();
+
+        if (str2size < str1size) {
+            for (size_t i = 0; i < str2size; i++) {
+                tmpstr1.push_back(str1[i]);
+            }
+
+            if (tmpstr1 != str2) {
+                return "";
+            }
+
+            tmpstr1.clear();
         }
+        size_t minSizeOfStr = NOD(str1size, str2size);
 
-        if (tmpstr1 != str2) {
-            return "";
-        }
-
-        tmpstr1.clear();
-
-        size_t minSizeOfStr = NOD(str1.size(), str2.size());
-
-        for (size_t i = 0; i < minSizeOfStr; i++){
+        for (size_t i = 0; i < minSizeOfStr; i++) {
             tmpstr1.push_back(str1[i]);
         }
         for (size_t i = 0; i < minSizeOfStr; i++) {
@@ -353,38 +356,24 @@ public:
         }
         if (tmpstr1 == tmpstr2) {
             tmpstr1.clear();
-            for (size_t i = 0; i < str1.size(); i+=minSizeOfStr){
-                for (size_t j = i; j < minSizeOfStr+i; j++){
+            for (size_t i = 0; i < str1size; i += minSizeOfStr) {
+                for (size_t j = i; j < minSizeOfStr + i; j++) {
                     tmpstr1.push_back(str1[j]);
-                }
-                if (tmpstr1 == tmpstr2) {
-                    counterOfgcd = true;
-                }
-                if (counterOfgcd == true && i+minSizeOfStr == str1.size()) {
-                    return tmpstr2;
                 }
                 if (tmpstr2 != tmpstr1) {
                     return "";
                 }
-                counterOfgcd = false;
+                if (i + minSizeOfStr == str1size) {
+                    return tmpstr2;
+                }
                 tmpstr1.clear();
             }
         }
-        else return "";
-
+        return "";
     }
 };
 
 int main() {
-
-    Solution1071 sol1071;
-    std::string str1 = "AAAAAAAAA";
-    std::string str2 = "AAACCC";
-
-    std::cout<<sol1071.gcdOfStrings(str1, str2);
-
-    
-
 
     return 0;
 }
